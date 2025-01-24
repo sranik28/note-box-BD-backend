@@ -1,3 +1,5 @@
+import { USER_ROLE } from "./user.constent";
+
 export type TUser = {
     name: string;
     email: string;
@@ -5,3 +7,5 @@ export type TUser = {
     role: 'admin' | 'user';
     isBlocked: boolean;
   };
+
+  export type TUserRole = keyof typeof USER_ROLE;
