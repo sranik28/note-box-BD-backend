@@ -33,6 +33,14 @@ export const auth = (...requiredRoles: TUserRole[]) => {
       if (user?.isBlocked) {
         throw new AppError(400, 'User is blocked');
       }
+
+      if (requiredRoles && !requiredRoles.includes(role)) {
+        throw new AppError(
+          403,
+          'You are not authorized  hi!',
+        );
+      }
+
       req.user = decoded as JwtPayload & { role: string };
 
     next();
