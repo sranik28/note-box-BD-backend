@@ -1,16 +1,18 @@
 import { z } from 'zod';
 
 // Zod validation for OrderItem
-export const orderItemValidation = z.object({
-  productId: z.string(),
-  quantity: z.number().int().positive({ message: 'Quantity must be a positive integer' }),
-  color: z.string().optional(),
-});
+// export const orderItemValidation = z.object({
+//   productId: z.string(),
+//   quantity: z.number().int().positive({ message: 'Quantity must be a positive integer' }),
+//   color: z.string().optional(),
+// });
 
 // Zod validation for Order
 export const createOrderValidation = z.object({
   userId: z.string(),
-  items: z.array(orderItemValidation).min(1, { message: 'At least one item is required' }),
+  productId: z.string(),
+  quantity: z.number().int().positive({ message: 'Quantity must be a positive integer' }),
+  color: z.string().optional(),
   totalAmount: z.number().positive({ message: 'Total amount must be a positive number' }),
   discount: z.number().min(0, { message: 'Discount must be a non-negative number' }).optional(),
   finalAmount: z.number().positive({ message: 'Final amount must be a positive number' }),
@@ -32,6 +34,6 @@ export const createOrderValidation = z.object({
 
 
 
-export const orderValidationSchema = {
+export const OrderValidationSchema = {
   createOrderValidation
 };

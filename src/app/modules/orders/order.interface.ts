@@ -1,16 +1,23 @@
-import { Types } from "mongoose";
+import { Types } from 'mongoose';
 
-export type TOrderStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+export type TOrderStatus =
+  | 'pending'
+  | 'processing'
+  | 'shipped'
+  | 'delivered'
+  | 'cancelled';
 
-export type TOrderItem = {
-  productId: Types.ObjectId;
-  quantity: number;
-  color?: string;
-}
+// export type TOrderItem = {
+//   productId: Types.ObjectId;
+//   quantity: number;
+//   color?: string;
+// };
 
 export type TOrder = {
+  productId: Types.ObjectId;
   userId: Types.ObjectId;
-  items: TOrderItem[];
+  quantity: number;
+  color?: string;
   totalAmount: number;
   discount?: number;
   finalAmount: number;
@@ -30,4 +37,4 @@ export type TOrder = {
   paidAt?: Date;
   createdAt: Date;
   updatedAt: Date;
-}
+};

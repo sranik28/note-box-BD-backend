@@ -1,16 +1,18 @@
 import { Schema, model } from 'mongoose';
-import { TOrder, TOrderItem } from './order.interface';
+import { TOrder } from './order.interface';
 
-const OrderItemSchema = new Schema<TOrderItem>({
-  productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
-  quantity: { type: Number, required: true },
-  color: { type: String },
-});
+// const OrderItemSchema = new Schema<TOrderItem>({
+//   productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+//   quantity: { type: Number, required: true },
+//   color: { type: String },
+// });
 
 const OrderSchema = new Schema<TOrder>(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    items: [OrderItemSchema],
+    productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+    quantity: { type: Number, required: true },
+    color: { type: String },
     totalAmount: { type: Number, required: true },
     discount: { type: Number, default: 0 },
     finalAmount: { type: Number, required: true },
