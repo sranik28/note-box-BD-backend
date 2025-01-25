@@ -3,7 +3,7 @@ import { sendResponse } from '../../utils/sendResponse';
 import { ProductService } from './product.service';
 
 const createProduct = CatchAsync(async (req, res, next) => {
-  const result = await ProductService.createProductIntoDB(req.body);
+  const result = await ProductService.createProductIntoDB(req.body, req.user.role);
   sendResponse(res, {
     statusCode: 200,
     message: 'Product created successfully',

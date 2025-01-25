@@ -1,4 +1,7 @@
-type TProduct = {
+import { Types } from "mongoose";
+
+export type TProduct = {
+    user:Types.ObjectId;
   name: string;
   price: number;
   brand: string;
