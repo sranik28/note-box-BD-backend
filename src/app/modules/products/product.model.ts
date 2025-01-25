@@ -14,8 +14,12 @@ const ProductSchema = new Schema<TProduct>(
       type: String,
       required: true,
     },
-    model: {
-      type: String,
+    images: {
+      type: [String],
+      required: true,
+    },
+    colors: {
+      type: [String],
       required: true,
     },
     quantity: {
@@ -33,6 +37,14 @@ const ProductSchema = new Schema<TProduct>(
     stock: {
       type: Number,
       required: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+    inStock: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true }, // Automatically manage createdAt and updatedAt fields
