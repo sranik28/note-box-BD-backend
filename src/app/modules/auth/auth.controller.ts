@@ -6,6 +6,7 @@ const login = CatchAsync(async (req, res, next) => {
   const result = await AuthService.login(req.body);
   sendResponse(res, {
     statusCode: 200,
+    message: 'User logged in successfully',
     success: true,
     token: result,
   });
