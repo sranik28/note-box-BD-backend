@@ -16,19 +16,17 @@ router.post(
 router.get(
  '/',
  auth(USER_ROLE.user, USER_ROLE.admin),
- validateRequest(ProductValidation.ProductValidationSchema),
  ProductController.getAllProducts,
 );
 router.get(
   '/:productId',
   auth(USER_ROLE.user, USER_ROLE.admin),
-  validateRequest(ProductValidation.ProductValidationSchema),
   ProductController.getProductById,
 );
 router.patch(
   '/update-product/:productId',
   auth(USER_ROLE.admin),
-  validateRequest(ProductValidation.ProductValidationSchema),
+  validateRequest(ProductValidation.ProductUpdateValidationSchema),
   ProductController.updateProductById,
 );
 router.delete(

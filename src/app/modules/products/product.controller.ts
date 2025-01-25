@@ -13,8 +13,7 @@ const createProduct = CatchAsync(async (req, res, next) => {
 });
 
 const getAllProducts = CatchAsync(async (req, res, next) => {
-    const {productId} = req.params
-  const result = await ProductService.getAllProductsFromDB(productId);
+  const result = await ProductService.getAllProductsFromDB();
   sendResponse(res, {
     statusCode: 200,
     message: 'Products fetched successfully',
@@ -24,7 +23,7 @@ const getAllProducts = CatchAsync(async (req, res, next) => {
 });
 
 const getProductById = CatchAsync(async (req, res, next) => {
-  const result = await ProductService.getProductByIdFromDB(req.params.id);
+  const result = await ProductService.getProductByIdFromDB(req.params.productId);
   sendResponse(res, {
     statusCode: 200,
     message: 'Product fetched successfully',
@@ -35,7 +34,7 @@ const getProductById = CatchAsync(async (req, res, next) => {
 
 const updateProductById = CatchAsync(async (req, res, next) => {
   const result = await ProductService.updateProductByIdFromDB(
-    req.params.id,
+    req.params.productId,
     req.body,
   );
   sendResponse(res, {
@@ -47,7 +46,7 @@ const updateProductById = CatchAsync(async (req, res, next) => {
 });
 
 const deleteProductById = CatchAsync(async (req, res, next) => {
-  const result = await ProductService.deleteProductByIdFromDB(req.params.id);
+  const result = await ProductService.deleteProductByIdFromDB(req.params.productId);
   sendResponse(res, {
     statusCode: 200,
     message: 'Product deleted successfully',

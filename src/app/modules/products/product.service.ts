@@ -5,8 +5,8 @@ const createProductIntoDB = async (payload: TProduct) => {
   return result;
 };
 
-const getAllProductsFromDB = async (id: string) => {
-  const result = await Product.findById(id);
+const getAllProductsFromDB = async () => {
+  const result = await Product.find();
   return result;
 };
 
