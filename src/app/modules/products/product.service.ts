@@ -1,4 +1,6 @@
+import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppErrors';
+import { productSearchableFields } from './product.constant';
 import { TProduct } from './product.interface';
 import { Product } from './product.model';
 
@@ -11,15 +13,26 @@ const createProductIntoDB = async (payload: TProduct, userRole: string) => {
   return result;
 };
 
-const getAllProductsFromDB = async () => {
-  const result = await Product.find({ isDeleted: false });
+const getAllProductsFromDB = async (query: Record<string, unknown>) => {
+  const ProductQuery = new QueryBuilder(
+    Product.find({ isDeleted: false }).populate('user'),
+    query,
+  )
+    .search(productSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await ProductQuery.modelQuery;
+  const meta = await ProductQuery.countTotal();
 
   // If no products are found, you might want to handle it (optional)
   if (!result || result.length === 0) {
     throw new AppError(404, 'No products found');
   }
 
-  return result;
+  return { data: result, meta };
 };
 
 const getProductByIdFromDB = async (id: string) => {
