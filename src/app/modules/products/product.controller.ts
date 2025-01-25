@@ -13,7 +13,8 @@ const createProduct = CatchAsync(async (req, res, next) => {
 });
 
 const getAllProducts = CatchAsync(async (req, res, next) => {
-  const result = await ProductService.getAllProductsFromDB();
+    const {productId} = req.params
+  const result = await ProductService.getAllProductsFromDB(productId);
   sendResponse(res, {
     statusCode: 200,
     message: 'Products fetched successfully',
