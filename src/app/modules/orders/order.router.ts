@@ -1,6 +1,4 @@
 import express from 'express';
-import { auth } from '../../middlewares/auth';
-import { USER_ROLE } from '../user/user.constent';
 import { validateRequest } from '../../middlewares/validateRequest';
 import { OrderValidationSchema } from './order.validation';
 import { OrderController } from './order.controller';
