@@ -40,10 +40,6 @@ const ProductSchema = new Schema<TProduct>(
       type: String,
       required: true,
     },
-    stock: {
-      type: Number,
-      required: true,
-    },
     isDeleted: {
       type: Boolean,
       default: false,

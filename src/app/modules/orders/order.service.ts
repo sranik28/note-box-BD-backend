@@ -13,14 +13,15 @@ const createOrderIntoDB = async (payload: TOrder) => {
     throw new AppError(400, 'Product quantity is not enough');
   }
 
-  if (product.quantity === 0) {
-    product.inStock = false;
-  }
+  product.inStock = product.quantity > 0;
 
-  if (product.inStock === false) {
+  if (product.inStock) {
     throw new AppError(400, 'Product is out of stock');
   }
-  
+  // if (product.quantity === 0) {
+  //   product.inStock = false;
+  // }
+
   product.quantity -= payload.quantity;
   await product.save();
 
@@ -31,6 +32,67 @@ const createOrderIntoDB = async (payload: TOrder) => {
   return result;
 };
 
+const calculateRevenueService = async () => {
+  const result = await Order.aggregate([
+    {
+      $group: {
+        _id: null,
+        totalRevenue: { $sum: '$totalPrice' },
+      },
+    },
+    {
+      $project: {
+        _id: 0, // Exclude _id
+      },
+    },
+  ]);
+  return result;
+};
+
+//Get All Product
+const getAllOrderService = async () => {
+  // console.log(searchTerm);
+
+  const result = await Order.find();
+  return result;
+};
+
+//Get single Product
+const getSingleOrderService = async (id: string) => {
+  const result = await Order.findById(id);
+  if (!result) {
+    throw new AppError(404, `Order with ID ${id} not found.`);
+  }
+  return result;
+};
+//delete Product
+const deleteSingleOrderService = async (id: string) => {
+  const result = await Order.findByIdAndDelete(id);
+  if (!result) {
+    throw new AppError(404, `Order with ID ${id} not found.`);
+  }
+  return result;
+};
+// Update Product
+const updateSingleOrderService = async (
+  id: string,
+  payload: Partial<TOrder>,
+) => {
+  const result = await Order.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
+  if (!result) {
+    throw new AppError(404, `Order with ID ${id} not found.`);
+  }
+  return result;
+};
+
 export const OrderService = {
   createOrderIntoDB,
+  updateSingleOrderService,
+  getSingleOrderService,
+  getAllOrderService,
+  calculateRevenueService,
+  deleteSingleOrderService
 };

@@ -1,7 +1,7 @@
-import { Types } from "mongoose";
+import { Types } from 'mongoose';
 
 export type TProduct = {
-    user:Types.ObjectId;
+  user: Types.ObjectId;
   name: string;
   price: number;
   brand: string;
@@ -10,7 +10,6 @@ export type TProduct = {
   colors: string[];
   description: string;
   category: string;
-  stock: number;
   isDeleted: boolean;
   inStock: boolean;
 };

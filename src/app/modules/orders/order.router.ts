@@ -14,8 +14,10 @@ router.post(
 validateRequest(OrderValidationSchema.createOrderValidation),
 OrderController.createOrder
 );
-// router.post(
-
-// );
+router.get('/revenue', OrderController.totalRevenue)
+router.get('/:productId', OrderController.getSingleOrder);
+router.get('/', OrderController.getAllOrder);
+router.put('/:productId', OrderController.updateOrder);
+router.delete('/:productId', OrderController.deleteOrder);
 
 export const OrderRouters = router;

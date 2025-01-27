@@ -32,7 +32,7 @@ const getAllProductsFromDB = async (query: Record<string, unknown>) => {
     throw new AppError(404, 'No products found');
   }
 
-  return { data: result, meta };
+  return { result, meta };
 };
 
 const getProductByIdFromDB = async (id: string) => {
